@@ -1,0 +1,31 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--通过Schema（com.cyl.xml）配置，基本配置使用-->
+    <bean id="helloWorldService" class="spring.basicknowledge.aop.basicUse.HelloWorldService"/>
+    <bean id="aspect" class="spring.basicknowledge.aop.basicUse.HelloWorldAspect"/>
+    <aop:config >
+        <!--定义切入点-->
+        <aop:pointcut id="mypoint" expression="execution(* spring.basicknowledge.aop.basicUse.*.sayHello(..))"/>
+        <!--定义切面-->
+        <aop:aspect ref="aspect">
+            <!--前置通知-->
+            <aop:before method="beforeAdvice" pointcut-ref="mypoint"/>
+            <!--后置通知-->
+            <aop:after method="afterFinallyAdvice" pointcut-ref="mypoint"/>
+            <!--后置返回通知-->
+            <aop:after-returning method="afterReturningAdvice" pointcut-ref="mypoint"/>
+            <!--后置异常通知-->
+            <aop:after-throwing method="afterThrowingAdvice" pointcut-ref="mypoint" />
+            <!--环绕通知-->
+            <aop:around method="aroundAdvice" pointcut-ref="mypoint"/>
+        </aop:aspect>
+    </aop:config>
+    <!--识别重载方法-->
+</beans>

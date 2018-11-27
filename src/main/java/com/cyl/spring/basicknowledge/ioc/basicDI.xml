@@ -1,0 +1,20 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--最基本的bean注入方式-->
+    <bean id="basicBeanUse" class="spring.basicknowledge.ioc.Student">
+        <property name="id" value="1"/>
+        <property name="name" value="xiaoming"/>
+    </bean>
+
+    <!--仅仅使用name定义bean，name要求在ioc容器中唯一-->
+    <bean name="nameDefineBean,nameDefinedBean2" class="spring.basicknowledge.ioc.Student"/>
+
+    <!--通过alias定义别名-->
+    <alias name="nameDefineBean" alias="studentALias"/>
+
+    <!--省略id及name-->
+    <!--<bean class="spring.basicknowledge.ioc.Student"/>-->
+</beans>

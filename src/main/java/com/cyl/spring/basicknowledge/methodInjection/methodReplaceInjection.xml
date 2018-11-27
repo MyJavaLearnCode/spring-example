@@ -1,0 +1,12 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--主要用于替换方法体-->
+    <bean id="replacer" class="spring.basicknowledge.methodInjection.PrinterReplacer"/>
+    <bean id="printer" class="spring.basicknowledge.methodInjection.Printer">
+        <replaced-method name="print" replacer="replacer">
+            <arg-type match="java.lang.String"/>
+        </replaced-method>
+    </bean>
+</beans>

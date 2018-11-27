@@ -1,0 +1,11 @@
+spring JDBC通过DataSource控制数据库连接：
+DriverManagerDataSource：简单封装了DriverManager获取数据库连接；通过DriverManager的getConnection方法获取数据库连接；
+singleConnectionDataSource:内部封装了一个连接，该连接使用后不会关闭，且不能再多线程环境中使用，一般用于测试；
+LazyConnectionDataSourceProxy：包装了一个DataSource，用于延迟获取数据库连接，只有在真正创建Statement等时才获取连接，
+                                因此在实际项目中最后使用该代理包装原始DataSource从而使得只有在真正需要时才获取；
+
+第三方提供的DataSource实现主要有C3P0、proxool、DBCP等，这些实现都具有数据库连接池能力；
+
+DataSourceUtils：spring jdbc抽象框架内部都是通过他的Getconnection（DataSource dataSource）获取的数据库连接；
+                releaseConnection用于释放数据库连接；
+                dataSourceUtils用于支持spring管理事务，只有使用DataSourceU获取的连接才具有spring管理事务；

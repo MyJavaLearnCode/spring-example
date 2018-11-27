@@ -1,0 +1,22 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--查找方法注入，注入方法的返回结果-->
+    <!--方法注入主要用于处理“singleton”作用域的Bean需要其他作用域的Bean时，采用Spring查找方法注入方式无需修改任何代码即能获取需要的其他作用域的Bean。-->
+    <bean id="prototypePrinter" class="spring.basicknowledge.methodInjection.Printer" scope="prototype"/>
+    <bean id="singletonPrinter" class="spring.basicknowledge.methodInjection.Printer" scope="singleton"/>
+    <bean id="helloApi1" class="spring.basicknowledge.methodInjection.HelloImpl" scope="singleton">
+        <property name="printer" ref="prototypePrinter"/>
+        <lookup-method name="creatPrototypePrinter" bean="prototypePrinter"/>
+        <lookup-method name="creatSingletonPrinter" bean="singletonPrinter"/>
+    </bean>
+    <bean id="helloApi2" class="spring.basicknowledge.methodInjection.HelloImpl" scope="prototype">
+        <property name="printer" ref="prototypePrinter"/>
+        <lookup-method name="creatPrototypePrinter" bean="prototypePrinter"/>
+        <lookup-method name="creatSingletonPrinter" bean="singletonPrinter"/>
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,90 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--通过默认构造器生成bean实例-->
+    <bean id="noArgsConstructor" class="spring.basicknowledge.ioc.Student"/>
+
+    <!--通过有参构造器注入,通过索引注入-->
+    <bean id="argsConstructor" class="spring.basicknowledge.ioc.Student">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="小明"/>
+    </bean>
+
+    <!--构造器，参数类型注入-->
+    <bean id="argsTypeConstructor" class="spring.basicknowledge.ioc.Student">
+        <constructor-arg type="int" value="1"/>
+        <constructor-arg type="java.lang.String" value="小明"/>
+    </bean>
+
+    <!--构造器，参数名注入-->
+    <bean id="argsNameConstructor" class="spring.basicknowledge.ioc.Student">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="小明"/>
+    </bean>
+
+    <!--通过setter方式注入null-->
+    <bean id="studentSetterDiNull" class="spring.basicknowledge.ioc.Student">
+        <property name="name">
+            <null/>
+        </property>
+    </bean>
+
+    <!--通过静态工厂方法实例化bean-->
+    <bean id="staticFactoryMethodInitialBean" class="spring.basicknowledge.ioc.StudentStaticFactory" factory-method="newInstance">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="小明"/>
+    </bean>
+
+    <!--通过实例工厂配置bean-->
+    <bean id="staticFactory" class="spring.basicknowledge.ioc.StudentStaticFactory"/>
+    <bean id="instanceFactoryMethodInitialBean" factory-bean="staticFactory" factory-method="newInstance1">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="小明"/>
+    </bean>
+
+    <!--注入集合数据-->
+    <!--注入list-->
+    <bean id="studentSetterDiList" class="spring.basicknowledge.ioc.Student">
+        <property name="books">
+            <list value-type="java.lang.String">
+                <value>语文</value>
+                <value>数学</value>
+                <value>英语</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--注入数组-->
+    <bean id="studentSetterDiArray" class="spring.basicknowledge.ioc.Student">
+        <property name="clothes">
+            <array value-type="java.lang.String">
+                <value>短袖</value>
+                <value>内衣</value>
+                <value>裤子</value>
+            </array>
+        </property>
+    </bean>
+
+    <!--注入set-->
+    <bean id="studentSetterDiSet" class="spring.basicknowledge.ioc.Student">
+        <property name="bankCard">
+            <set value-type="java.lang.String">
+                <value>交通银行</value>
+                <value>交通银行</value>
+                <value>中国银行</value>
+            </set>
+        </property>
+    </bean>
+
+    <!--注入map-->
+    <bean id="studentSetterDiMap" class="spring.basicknowledge.ioc.Student">
+        <property name="keyAndValue">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="中国银行" value="1235"/>
+                <entry key="工商银行" value="2333"/>
+            </map>
+        </property>
+    </bean>
+</beans>

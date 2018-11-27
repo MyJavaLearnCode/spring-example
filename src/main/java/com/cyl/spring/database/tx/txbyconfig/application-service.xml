@@ -1,0 +1,42 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="targetUserService" class="spring.tx.txbyconfig.ConfigUserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="addressService" ref="targetAddressService"/>
+    </bean>
+    <bean id="targetAddressService" class="spring.tx.txbyconfig.ConfigAddressServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+    </bean>
+
+    <bean id="transactionProxyParent" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+          abstract="true">
+
+        <property name="transactionManager" ref="txManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">
+                    PROPAGATION_REQUIRED,
+                    ISOLATION_READ_COMMITTED,
+                    timeout_10,
+                    -Exception,
+                    +NoRollBackException
+                </prop>
+                <prop key="*">
+                    PROPAGATION_REQUIRED,
+                    ISOLATION_READ_COMMITTED,
+                    readOnly
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="proxyUserService" parent="transactionProxyParent">
+        <property name="target" ref="targetUserService"/>
+    </bean>
+
+    <bean id="proxyAddresssService" parent="transactionProxyParent">
+        <property name="target" ref="targetAddressService"/>
+    </bean>
+</beans>

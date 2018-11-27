@@ -1,0 +1,7 @@
+大多数情况下spring jdbc都是与ioc容器一起使用，通过配置的方式使用spring jdbc；
+大部分实践都是使用jdbcTemplate（或者NamedParameterJdbcTemplate）进行开发，20%时间使用其他类开发；
+spring jdbc通过实现DaoSupport来支持一致的数据库访问；
+主要提供如下DaoSupport实现：
+JDBCSupport：用于支持一致的JDBCTemplate访问；
+NamedParameterJdbcDaoSupport：继承JDBCDaoSupport，同时提供NamedParameterJDBCTemplate访问；
+使用DataSourceUtils获取及释放连接，连接是与线程绑定的，因此这些jdbc模板类是线程安全的；

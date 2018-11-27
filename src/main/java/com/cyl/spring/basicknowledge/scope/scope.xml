@@ -1,0 +1,20 @@
+<?com.cyl.xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--scope作用域，singleton、prototype、request、session、globalSession-->
+    <bean id="prototypePerson" class="spring.basicknowledge.scope.Person" scope="prototype">
+        <property name="name" value="小明"/>
+        <property name="age" value="12"/>
+        <property name="height" value="1.75"/>
+    </bean>
+
+    <bean id="singletonPerson" class="spring.basicknowledge.scope.Person" scope="singleton">
+        <property name="name" value="小明"/>
+        <property name="age" value="12"/>
+        <property name="height" value="1.75"/>
+    </bean>
+
+
+
+</beans>
